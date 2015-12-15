@@ -96,14 +96,7 @@ function activate(a, b, c, d) {
   pointactive[d] = false;
 }
 
-function calculateCurrentValue(){
-  bestValue = 0;
-  for(var i = 0; i < points.length - 1; i++){
-    bestValue += distance(points[best[i]], points[best[i+1]]);
-  }
-  bestValue += distance(points[best[best.length-1]], points[best[0]])
-  return bestValue;
-}
+
 
 function reverse(from, to) {
   for(var i = from, j = to; i < j; i++, j--) {

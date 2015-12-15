@@ -1,6 +1,7 @@
 function GreedyInitialize() {
   countDistances();
   bestValue = 0;
+  best = [];
   best.push(randomNumber(points.length-1));
 }
 
@@ -31,6 +32,7 @@ function GreedyFindNextPoint(){
       }
     }
   }
-  bestValue += mind;
   best.push(nextPoint);
+  calculateCurrentValue();
+  
 }

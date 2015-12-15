@@ -108,3 +108,11 @@ function power(x,n) {
     if(n === 1) return x;
     return Math.exp(n*Math.log(x))
 }
+function calculateCurrentValue(){
+  bestValue = 0;
+  for(var i = 0; i < best.length - 1; i++){
+    bestValue += distance(points[best[i]], points[best[i+1]]);
+  }
+  bestValue += distance(points[best[best.length-1]], points[best[0]])
+  return bestValue;
+}

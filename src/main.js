@@ -170,7 +170,9 @@ function draw() {
     }
     
   } else {
-    $('#status').text("There are " + points.length + " Cities in the map. ")
+    $('#status').text("There are " + points.length + " Cities in the map. "
+                      +" best value: "
+                      + ~~(bestValue));
   }
   clearCanvas();
   if (points.length > 0) {
