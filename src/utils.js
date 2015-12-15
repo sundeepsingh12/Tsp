@@ -75,3 +75,30 @@ function distance(p1, p2) {
 function euclidean(dx, dy) {
   return Math.sqrt(dx*dx + dy*dy);
 }
+function countDistances() {
+  var length = points.length;
+  dis = new Array(length);
+  for(var i=0; i<length; i++) {
+    dis[i] = new Array(length);
+    for(var j=0; j<length; j++) {
+      dis[i][j] = distance(points[i], points[j]); 
+    }
+  }
+}
+
+function checkExist(array, item){
+  for(var i = 0; i<array.length; i++){
+    if(array[i] == item){
+      return true;
+    }
+  }
+  return false;
+}
+
+function randomIndivial(n) {
+  var a = [];
+  for(var i=0; i<n; i++) {
+    a.push(i);
+  }
+  return a.shuffle();
+}

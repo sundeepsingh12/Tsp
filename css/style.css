@@ -2,13 +2,16 @@
     border-radius: 5px;
     margin-top: 20px;
 }
-
+header{
+    color: white;
+    background-color: blue;
+}
 #title {
-    margin-top: 40px;
+    padding: 10px;
     font-size: 42px;
     display: block;
-    margin-bottom: 9px;
     letter-spacing: -1px;
+    
 }
 
 #control_bottons {
