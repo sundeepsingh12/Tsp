@@ -1,6 +1,7 @@
 var GENETIC = 0;
 var GREEDY = 1;
 var FLS = 2;
+var DP = 3;
 
 var currentAlgorithm = GREEDY;
 
@@ -33,9 +34,10 @@ $(function() {
   init();
   initData();
   //points = data200;
-  addRandomPoints(50);
+  addRandomPoints(10);
   $('#addRandom_btn').click(function() {
-    addRandomPoints(50);
+    var num = $('#cbo_num').val();
+    addRandomPoints(num);
     $('#status').text("");
     running = false;
   });
@@ -49,6 +51,8 @@ $(function() {
         GreedyInitialize();
       }else if (currentAlgorithm == FLS){
         FLSInitialize();
+      }else if (currentAlgorithm == DP){
+        DPInitialize();
       }
       running = true;
     } else {
@@ -155,6 +159,11 @@ function draw() {
                       + ~~(bestValue));
     }else if(currentAlgorithm==FLS){
       FLSOptimize();
+      $('#status').text("There are " + points.length + " cities in the map, "
+                      +" best value: "
+                      + ~~(bestValue));
+    }else if(currentAlgorithm==DP){
+      DPCompute();
       $('#status').text("There are " + points.length + " cities in the map, "
                       +" best value: "
                       + ~~(bestValue));

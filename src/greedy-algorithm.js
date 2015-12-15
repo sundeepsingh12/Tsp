@@ -1,7 +1,7 @@
 function GreedyInitialize() {
   countDistances();
   bestValue = 0;
-  best.push(setFirstPoint());
+  best.push(randomNumber(points.length-1));
 }
 
 function setFirstPoint(){

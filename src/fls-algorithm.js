@@ -15,7 +15,13 @@ function FLSInitialize() {
 }
 
 function FLSOptimize() {
-  if(visited < numCities) {
+  visited = 0;
+  current = 0;
+  for(var i=0; i< numCities;i++){
+    pointactive[i] = true;
+  }
+  calculateCurrentValue();
+  while(visited < numCities) {
     var currentPoint = points[best[current]];
     if(pointactive[current]) {
 		  var modified = findMove(current, currentPoint, numCities);
@@ -30,7 +36,9 @@ function FLSOptimize() {
 
     current = wrap(current+1, numCities); 
     visited++;
-  }else{
+  }
+  /*
+  else{
     visited = 0;
     current = 0;
     calculateCurrentValue();
@@ -38,6 +46,7 @@ function FLSOptimize() {
       pointactive[i] = true;
     }
   }
+  */
 }
 
 function wrap(i,max) {

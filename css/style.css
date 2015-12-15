@@ -4,7 +4,8 @@
 }
 header{
     color: white;
-    background-color: blue;
+    background-color: #08c;
+    text-align: center;
 }
 #title {
     padding: 10px;
@@ -13,9 +14,9 @@ header{
     letter-spacing: -1px;
     
 }
-
+.im-centered { margin: auto; max-width: 940px;}
 #control_bottons {
-    margin: 10px;
+    margin: 10px;    
 }
 
 #status {
