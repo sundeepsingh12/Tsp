@@ -246,7 +246,7 @@ function countDistances() {
   for(var i=0; i<length; i++) {
     dis[i] = new Array(length);
     for(var j=0; j<length; j++) {
-      dis[i][j] = ~~distance(points[i], points[j]); 
+      dis[i][j] = distance(points[i], points[j]); 
     }
   }
 }
