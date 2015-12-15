@@ -10,24 +10,6 @@ function GANextGeneration() {
   selection();
   crossover();
   mutation();
-
-  //if(UNCHANGED_GENS > POPULATION_SIZE + ~~(points.length/10)) {
-    //MUTATION_PROBABILITY = 0.05;
-    //if(doPreciseMutate) {
-    //  best = preciseMutate(best);
-    //  best = preciseMutate1(best);
-    //  if(evaluate(best) < bestValue) {
-    //    bestValue = evaluate(best);
-    //    UNCHANGED_GENS = 0;
-    //    doPreciseMutate = true;
-    //  } else {
-    //    doPreciseMutate = false;
-    //  }
-    //}
-  //} else {
-    //doPreciseMutate = 1;
-    //MUTATION_PROBABILITY = 0.01;
-  //}
   setBestValue();
 }
 function tribulate() {
@@ -60,28 +42,8 @@ function crossover() {
   queue.shuffle();
   for(var i=0, j=queue.length-1; i<j; i+=2) {
     doCrossover(queue[i], queue[i+1]);
-    //oxCrossover(queue[i], queue[i+1]);
   }
 }
-//function oxCrossover(x, y) {	
-//  //var px = population[x].roll();
-//  //var py = population[y].roll();
-//  var px = population[x].slice(0);
-//  var py = population[y].slice(0);
-
-//  var rand = randomNumber(points.length-1) + 1;
-//  var pre_x = px.slice(0, rand);
-//  var pre_y = py.slice(0, rand);
-
-//  var tail_x = px.slice(rand, px.length);
-//  var tail_y = py.slice(rand, py.length);
-
-//  px = tail_x.concat(pre_x);
-//  py = tail_y.concat(pre_y);
-
-//  population[x] = pre_y.concat(px.reject(pre_y));
-//  population[y] = pre_x.concat(py.reject(pre_x));
-//}
 function doCrossover(x, y) {
   child1 = getChild('next', x, y);
   child2 = getChild('previous', x, y);
@@ -133,19 +95,7 @@ function preciseMutate(orseq) {
   //alert(bestv);
   return seq;
 }
-function preciseMutate1(orseq) {  
-  var seq = orseq.clone();
-  var bestv = evaluate(seq);
 
-  for(var i=0; i<seq.length-1; i++) {
-    var new_seq = seq.clone();
-    new_seq.swap(i, i+1);
-    var v = evaluate(new_seq);
-    if(v < bestv) {bestv = v, seq = new_seq; };
-  }
-  //alert(bestv);
-  return seq;
-}
 function swap_seq(seq, p0, p1, q0, q1) {
   var seq1 = seq.slice(0, p0);
   var seq2 = seq.slice(p1+1, q1);
@@ -226,13 +176,7 @@ function wheelOut(rand) {
     }
   }
 }
-function randomIndivial(n) {
-  var a = [];
-  for(var i=0; i<n; i++) {
-    a.push(i);
-  }
-  return a.shuffle();
-}
+
 function evaluate(indivial) {
   var sum = dis[indivial[0]][indivial[indivial.length - 1]];
   for(var i=1; i<indivial.length; i++) {
@@ -240,13 +184,4 @@ function evaluate(indivial) {
   }
   return sum;
 }
-function countDistances() {
-  var length = points.length;
-  dis = new Array(length);
-  for(var i=0; i<length; i++) {
-    dis[i] = new Array(length);
-    for(var j=0; j<length; j++) {
-      dis[i][j] = distance(points[i], points[j]); 
-    }
-  }
-}
+

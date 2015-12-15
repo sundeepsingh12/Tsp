@@ -1,6 +1,13 @@
+var GENETIC = 0;
+var GREEDY = 1;
+var FLS = 2;
+
+var currentAlgorithm = GREEDY;
+
 var canvas, ctx;
 var WIDTH, HEIGHT;
 var points = [];
+var best = [];
 var running;
 var canvasMinX, canvasMinY;
 var doPreciseMutate;
@@ -14,7 +21,7 @@ var UNCHANGED_GENS;
 
 var mutationTimes;
 var dis;
-var bestValue, best;
+var bestValue;
 var currentGeneration;
 var currentBest;
 var population;
@@ -25,7 +32,8 @@ var roulette;
 $(function() {
   init();
   initData();
-  points = data200;
+  //points = data200;
+  addRandomPoints(50);
   $('#addRandom_btn').click(function() {
     addRandomPoints(50);
     $('#status').text("");
@@ -34,7 +42,14 @@ $(function() {
   $('#start_btn').click(function() { 
     if(points.length >= 3) {
       initData();
-      GAInitialize();
+      currentAlgorithm = $('#cbo_algorithm').val(); 
+      if(currentAlgorithm == GENETIC){
+        GAInitialize();
+      }else if (currentAlgorithm == GREEDY){
+        GreedyInitialize();
+      }else if (currentAlgorithm == FLS){
+        FLSInitialize();
+      }
       running = true;
     } else {
       alert("add some more points to the map!");
@@ -46,7 +61,9 @@ $(function() {
     points = new Array();
   });
   $('#stop_btn').click(function() {
-    if(running === false && currentGeneration !== 0){
+    if(running === false 
+      && (currentAlgorithm == GENETIC && currentGeneration !== 0)
+    ){
       running = true;
     } else {
       running = false;
@@ -57,7 +74,7 @@ function init() {
   ctx = $('#canvas')[0].getContext("2d");
   WIDTH = $('#canvas').width();
   HEIGHT = $('#canvas').height();
-  setInterval(draw, 10);
+  setInterval(draw, 20);
   init_mouse();
 }
 function init_mouse() {
@@ -102,11 +119,14 @@ function addRandomPoints(number) {
 function drawCircle(point) {
   ctx.fillStyle   = '#000';
   ctx.beginPath();
-  ctx.arc(point.x, point.y, 3, 0, Math.PI*2, true);
+  ctx.arc(point.x, point.y, 2, 0, Math.PI*2, true);
   ctx.closePath();
   ctx.fill();
 }
 function drawLines(array) {
+  if (array.length == 0){
+    return;
+  }
   ctx.strokeStyle = '#f00';
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -122,11 +142,24 @@ function drawLines(array) {
 }
 function draw() {
   if(running) {
-    GANextGeneration();
-    $('#status').text("There are " + points.length + " cities in the map, "
+    if(currentAlgorithm == GENETIC){
+      GANextGeneration();
+      $('#status').text("There are " + points.length + " cities in the map, "
                       +"the " + currentGeneration + "th generation with "
                       + mutationTimes + " times of mutation. best value: "
                       + ~~(bestValue));
+    }else if(currentAlgorithm==GREEDY){
+      GreedyFindNextPoint();
+      $('#status').text("There are " + points.length + " cities in the map, "
+                      +" best value: "
+                      + ~~(bestValue));
+    }else if(currentAlgorithm==FLS){
+      FLSOptimize();
+      $('#status').text("There are " + points.length + " cities in the map, "
+                      +" best value: "
+                      + ~~(bestValue));
+    }
+    
   } else {
     $('#status').text("There are " + points.length + " Cities in the map. ")
   }
@@ -135,7 +168,7 @@ function draw() {
     for(var i=0; i<points.length; i++) {
       drawCircle(points[i]);
     }
-    if(best.length === points.length) {
+    if((currentAlgorithm != GENETIC) || (best.length === points.length)) {
       drawLines(best);
     }
   }
