@@ -137,9 +137,12 @@ function drawCircle(point) {
   
 }
 function drawLines(array) {
+  
   if (array.length == 0){
     return;
   }
+  
+  var draw_number = (array.length <= 100);
   var idx = 1;
   ctx.font = "12px Arial";
   
@@ -152,7 +155,9 @@ function drawLines(array) {
   for(var i=1; i<array.length; i++) {
     ctx.lineTo( points[array[i]].x, points[array[i]].y )
     idx++;
-    ctx.fillText(idx,points[array[i]].x,points[array[i]].y);
+    if(draw_number){
+      ctx.fillText(idx,points[array[i]].x,points[array[i]].y);
+    }
     
   }
   ctx.lineTo(points[array[0]].x, points[array[0]].y);
