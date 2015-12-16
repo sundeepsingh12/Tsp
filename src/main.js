@@ -3,6 +3,7 @@ var GREEDY = 1;
 var FLS = 2;
 var DP = 3;
 var BNB = 4;
+var GREEDY_FLS = 5;
 
 var currentAlgorithm = GREEDY;
 
@@ -58,6 +59,8 @@ $(function() {
       }else if (currentAlgorithm == BNB){
         myApp.showPleaseWait();
         BNBInitialize();
+      }else if (currentAlgorithm == GREEDY_FLS){
+        GreedyFLSInitialize();
       }
       running = true;
     } else {
@@ -170,7 +173,7 @@ function draw() {
       $('#status').text("There are " + points.length + " cities in the map, "
                       +" best value: "
                       + ~~(bestValue));
-    }else if(currentAlgorithm==FLS){
+    }else if(currentAlgorithm==FLS || currentAlgorithm==GREEDY_FLS){
       FLSOptimize();
       $('#status').text("There are " + points.length + " cities in the map, "
                       +" best value: "
