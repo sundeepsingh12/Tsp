@@ -4,11 +4,14 @@
 	<link rel="stylesheet" href="./css/bootstrap.min.css" />
 
 	<script type="text/javascript" src="./lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./src/app.js"></script>
 	<script type="text/javascript" src="./src/main.js"></script>
 	<script type="text/javascript" src="./src/genetic-algorithm.js"></script>
 	<script type="text/javascript" src="./src/greedy-algorithm.js"></script>
 	<script type="text/javascript" src="./src/fls-algorithm.js"></script>
 	<script type="text/javascript" src="./src/dp-algorithm.js"></script>
+	<script type="text/javascript" src="./src/bnb-algorithm.js"></script>
 	<script type="text/javascript" src="./src/utils.js"></script>
     </head>
     <body>
@@ -21,18 +24,19 @@
 		<div id="control_bottons" class="btn-group">
 			<select id="cbo_algorithm" class="btn">
 				<option value="3">Dynamic Programming Algorithm</option>
+				<option value="4">Branch & Bound Algorithm</option>
 				<option value="1">Geedy Algorithm</option>
 				<option value="0">Genetic Algorithm</option>
 				<option value="2">Local Search Algorithm</option>
 			</select>
-			<button id="addRandom_btn" class="btn btn-info">Add</button>
+			
 			<select id="cbo_num" class="btn">
 				<option value="10">10 random Points</option>
 				<option value="20">20 random Points</option>
 				<option value="50">50 random Points</option>
 				<option value="100">100 random Points</option>
 			</select>
-		    
+		    <button id="addRandom_btn" class="btn btn-info">Add</button>
 		    <button id="start_btn" class="btn btn-primary">Start/Restart</button>
 		    <button id="stop_btn" class="btn btn-warning">Stop/Continue</button>
 		    <button id="clear_btn" class="btn btn-danger">Clear All</button>
@@ -43,7 +47,7 @@
 			</div>
 		<canvas id="canvas" 
 		    width="940" height="450"
-		    style="border:1px solid;">
+		    style="border:1px solid #08c;">
 		    please change to HTML5 supported browser to view the demo.
 		</canvas>
 	    </div>
@@ -51,5 +55,6 @@
 	<footer>
 	    Project Hosted on <a href="https://github.com/thanhtranviet/TSP-Algorithm-Demo">Github</a>
 	</footer>
+	
     </body>
 </html>

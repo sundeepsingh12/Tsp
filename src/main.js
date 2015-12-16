@@ -2,6 +2,7 @@ var GENETIC = 0;
 var GREEDY = 1;
 var FLS = 2;
 var DP = 3;
+var BNB = 4;
 
 var currentAlgorithm = GREEDY;
 
@@ -52,7 +53,11 @@ $(function() {
       }else if (currentAlgorithm == FLS){
         FLSInitialize();
       }else if (currentAlgorithm == DP){
+        myApp.showPleaseWait();
         DPInitialize();
+      }else if (currentAlgorithm == BNB){
+        myApp.showPleaseWait();
+        BNBInitialize();
       }
       running = true;
     } else {
@@ -121,23 +126,31 @@ function addRandomPoints(number) {
   }
 }
 function drawCircle(point) {
-  ctx.fillStyle   = '#000';
+  ctx.fillStyle   = '#08c';
   ctx.beginPath();
   ctx.arc(point.x, point.y, 2, 0, Math.PI*2, true);
   ctx.closePath();
   ctx.fill();
+  
 }
 function drawLines(array) {
   if (array.length == 0){
     return;
   }
+  var idx = 1;
+  ctx.font = "12px Arial";
+  
   ctx.strokeStyle = '#f00';
   ctx.lineWidth = 1;
   ctx.beginPath();
 
   ctx.moveTo(points[array[0]].x, points[array[0]].y);
+  ctx.fillText(idx,points[array[0]].x,points[array[0]].y);
   for(var i=1; i<array.length; i++) {
     ctx.lineTo( points[array[i]].x, points[array[i]].y )
+    idx++;
+    ctx.fillText(idx,points[array[i]].x,points[array[i]].y);
+    
   }
   ctx.lineTo(points[array[0]].x, points[array[0]].y);
 
@@ -167,6 +180,19 @@ function draw() {
       $('#status').text("There are " + points.length + " cities in the map, "
                       +" best value: "
                       + ~~(bestValue));
+      if(dpFinish){
+        myApp.hidePleaseWait();
+      }
+    }
+    else if(currentAlgorithm==BNB){
+      
+      BNBCompute();
+      $('#status').text("There are " + points.length + " cities in the map, "
+                      +" best value: "
+                      + ~~(bestValue));
+      if(bnbFinish){
+        myApp.hidePleaseWait();
+      }
     }
     
   } else {

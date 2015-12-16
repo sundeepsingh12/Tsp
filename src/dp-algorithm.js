@@ -17,10 +17,13 @@ function DPCompute(){
 	if(dpRunning){
 		return;
 	}
+	
 	var n = points.length;
-	if(n > 25){
+	if(n > 20){
 		alert("Too many point to calculate for Dynamic Programing algorithm");
 		running = false;
+		dpRunning = false;
+		dpFinish = true;
 		return;
 	}
 	dpRunning = true;
@@ -55,6 +58,7 @@ function DPCompute(){
 	calculateCurrentValue();
 	dpRunning = false;
 	dpFinish = true;
+	
 }
 
 function tsp(start, set) {
