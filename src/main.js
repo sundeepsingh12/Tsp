@@ -4,6 +4,7 @@ var FLS = 2;
 var DP = 3;
 var BNB = 4;
 var GREEDY_FLS = 5;
+var BNBHK = 6;
 
 var currentAlgorithm = GREEDY;
 
@@ -61,9 +62,12 @@ $(function() {
         BNBInitialize();
       }else if (currentAlgorithm == GREEDY_FLS){
         GreedyFLSInitialize();
+      }else if (currentAlgorithm == BNBHK){
+        myApp.showPleaseWait();
+        BNBHKInitialize();
       }
       running = true;
-    } else {
+    }else {
       alert("add some more points to the map!");
     }
   });
@@ -202,8 +206,18 @@ function draw() {
         myApp.hidePleaseWait();
       }
     }
-    
-  } else {
+    else if(currentAlgorithm==BNBHK){
+      
+      BNBHKCompute();
+      $('#status').text("There are " + points.length + " cities in the map, "
+                      +" best value: "
+                      + ~~(bestValue));
+      if(bnbhkFinish){
+        myApp.hidePleaseWait();
+      }
+    }
+  }
+   else {
     $('#status').text("There are " + points.length + " Cities in the map. "
                       +" best value: "
                       + ~~(bestValue));
